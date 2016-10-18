@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var ejsLayouts = require('express-ejs-layouts');
 var bodyParser = require('body-parser');
@@ -13,7 +14,7 @@ app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ejsLayouts);
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'coolsecret',
   resave: false,
   saveUninitialized: true
 }));
