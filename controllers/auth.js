@@ -1,16 +1,43 @@
 var express = require('express');
+var db = require('../models');
+var passport = require('../config/ppConfig');
 var router = express.Router();
 
 router.get('/signup', function(req, res) {
   res.render('auth/signup');
 });
 
+router.post('/signup', function(req, res) {
+  var email = req.body.email;
+  var name = req.body.name;
+  var password = req.body.password;
+
+  db.user.findOrCreate({
+    where: { email: email },
+    defaults: {
+      name: name,
+      password: password
+    }
+  }).spread(function(user, created) {
+    if (created) {
+      passport.authenticate('local', {
+        successRedirect: '/',
+        successFlash: 'Account created and logged in'
+      })(req, res);
+    } else {
+      req.flash('error', 'Email already exists');
+      res.redirect('/auth/signup');
+    }
+  }).catch(function(error) {
+    req.flash('error', error.message);
+    res.redirect('/auth/signup');
+  });
+});
+
 router.get('/login', function(req, res) {
   res.render('auth/login');
 });
 
-<<<<<<< HEAD
-=======
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
@@ -25,8 +52,8 @@ router.get('/facebook', passport.authenticate('facebook', {
 router.get('/callback/facebook', passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
-  failureFlash: 'An error occurred, please try later',
-  successFlash: 'You have logged in with Facebook'
+  failureFlash: 'An error occurred, try again sucka',
+  successFlash: 'You logged in with Facebook!'
 }));
 
 router.get('/logout', function(req, res) {
@@ -35,5 +62,4 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
->>>>>>> brian-finished
 module.exports = router;
