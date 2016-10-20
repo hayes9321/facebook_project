@@ -46,7 +46,7 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/facebook', passport.authenticate('facebook', {
-  scope: ['public_profile', 'email']
+  scope: ['public_profile', 'email','user_posts']
 }));
 
 router.get('/callback/facebook', passport.authenticate('facebook', {

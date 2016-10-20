@@ -1,12 +1,12 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var word = sequelize.define('word', {
-    originating: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    unit: DataTypes.STRING,
+    startingPoint: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        models.word.belongsToMany(models.user,{ through:"map"}); 
+        // associations can be defined here
       }
     }
   });

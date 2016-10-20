@@ -29,6 +29,12 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Password must be between 8 and 99 characters'
         }
       }
+    },
+     facebookId: {
+      type: DataTypes.STRING
+    },
+    facebookToken: {
+      type: DataTypes.STRING
     }
   }, {
     hooks: {
