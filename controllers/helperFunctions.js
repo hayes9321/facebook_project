@@ -79,8 +79,8 @@ function processMessage(resultsMap, post){
     resultsMap.addStart(message[0]);
   }
   for(var i = 0; i < message.length; i++){
-    if(i + 1 >= message.length){
-      resultsMap.addEnding(message[i]);
+    if(i + 2 >= message.length){
+      resultsMap.addEnding(message[i], message[i + 1]);
       return;
     }
     resultsMap.addValueToKey(message[i], message[i + 1]);

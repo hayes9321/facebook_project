@@ -1,114 +1,32 @@
-var fs = require('fs');
+// var helperFunction = require('../controllers/helperFunctions');
+//algorithm
+//create a randomizer helper function
 
-//this is a word class
-//the goal of theis is to construct a key value object
-function Word(unit, array){
-  this.unit = unit;
-  //this is what will follow the key.
-  this.following = array;
-  // this.followContains = function(addUnit){
-  //   for(var i = 0; i < this.following.length; i++){
-  //     if(addUnit === this.following[i].unit){
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-  this.followingIncrementOrAdd = function(addUnit){
-    for(var i = 0; i < this.following.length; i++){
-      if(addUnit === this.following[i].unit){
-        this.following[i].count += 1;
-        return;
-      }
-    }
+// var availableWords = results.helperFunction.getKeys();
+// var nextWord= results.words[i].following;
+// var start = results.starts[i];
+// var ends = results.ends[i];
 
-    this.following.push({ unit: addUnit, count: 1});
-  }
-}
+//helper function
+// function choice(array) {
+//   return Math.floor(array.length * Math.random());
+// }
 
-//this is the hash map constructor
-function Map(words){
-  this.words = words;
-  this.starts = [];
-  this.ends = [];
-
-  this.getKeys = function(){
-    var results = [];
-    for(var i = 0; i < this.words.length; i++){
-      results.push(this.words[i].unit);
-    }
-    return results;
-  }
-  this.getValueByKey = function(targetUnit){
-    for(var i = 0; i < this.words.length; i++){
-      if(targetUnit === this.words[i].unit){
-        return this.words[i].following;
-      }
-    }
-  }
-  this.keyExists = function(targetUnit){
-    var keys = this.getKeys();
-    if(keys.indexOf(targetUnit)=== -1){
-      return false;
-    }
-    return true;
-  }
-  this.addValueToKey = function(targetUnit, addUnit){
-    for(var i = 0; i < this.words.length; i++){
-      if(targetUnit === this.words[i].unit){
-        this.words[i].followingIncrementOrAdd(addUnit);
-        return;
-      }
-    }
-    this.words.push(new Word(targetUnit, [{unit: addUnit, count: 1}]));
-  }
-  this.addStart = function(unit){
-    this.starts.push(unit);
-  }
-  this.addEnding = function(unit){
-    this.ends.push(unit);
-  }
-}
+// function makePost(minLength) {
+//     word = choice(startWords);
+//     var post = [word];
+//     while (availableWords.hasOwnProperty(word)) {
+//         var nextWords = availableWords[word];
+//         word = choice(nextWords);
+//         post.push(word);
+//         if (post.length > minLength && end.hasOwnProperty(word)) break;
+//     }
+//     if (post.length < minLength) return makePost(minLength);
+//     return post.join(' ');
+// };
 
 
-function processMessage(resultsMap, post){
-  var message = post.split(' ');
-
-  if(message.length > 0){
-    //resultsMap.addStart(message[0]);
-  }
-  for(var i = 0; i < message.length; i++){
-    if(i + 1 >= message.length){
-      resultsMap.addEnding(message[i]);
-      return;
-    }
-    resultsMap.addValueToKey(message[i], message[i + 1]);
-  }
-  return resultsMap; 
-}
-
-var results = new Map([]);
-processMessage(results, "Hello world hi there world hi if yes no yep world yay");
-
-for(var i = 0; i < results.words.length; i++){
-  console.log("UNIT: " + results.words[i].unit);
-  console.log("FOLLOWING: ");
-
-  for(var j = 0; j < results.words[i].following.length; j++){
-    console.log("unit: " + results.words[i].following[j].unit + ", count: " + results.words[i].following[j].count);
-  }
-
-  console.log("____________________");
-}
-
-console.log("starts");
-console.log(results.starts);
-console.log("ends");
-console.log(results.ends);
-console.log("____________________");
-
-
-
+// console.log(makePost(4));
 
 
 
