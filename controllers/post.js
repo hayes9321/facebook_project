@@ -44,6 +44,7 @@ router.get('/results', function(req, res) {
       function randomize(array) {
         var j = Math.floor(array.length * Math.random());
         return array[j];
+
       }
 
       function generateSentence(results){
@@ -52,7 +53,7 @@ router.get('/results', function(req, res) {
         var availableWords = results.getKeys();
         var nextWord = [];
         var sentence = "";
-        symbol = "^";
+        console.log(ends);
 
         for(var j = 0; j < results.words.length; j++){
           for(var k = 0; k < results.words[j].following.length; k++){
@@ -62,8 +63,11 @@ router.get('/results', function(req, res) {
           }
         }
         // console.log(availableWords);
-        while(symbol !== "$"){
-          return sentence += startWord + " " +randomize(availableWords) + " " +randomize(availableWords) + " "  + ends + ".";
+        while(startWord){
+        var choice = availableWords
+        var next = randomize(availableWords) + " " +randomize(nextWord) + " ";
+
+        return sentence  += startWord + " " + next + " " + ends + ".";
         }
       } 
       var result = generateSentence(results)  
