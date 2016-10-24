@@ -39,7 +39,7 @@ app.get('/profile', isLoggedIn, function(req, res) {
 app.use('/post', require('./controllers/post'));
 app.use('/auth', require('./controllers/auth'));
 
-var server = app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
 
-module.exports = server;
+
 
